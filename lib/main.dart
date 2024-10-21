@@ -10,16 +10,18 @@ class UrikkiriApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Urikkiri',
-      theme: ThemeData(
-        useMaterial3: true,
-        primaryColor: const Color(0xFF5B97E7),
-        scaffoldBackgroundColor: Colors.white,
-        splashColor: Colors.transparent,
+    return SafeArea(
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Urikkiri',
+        theme: ThemeData(
+          useMaterial3: true,
+          primaryColor: const Color(0xFF5B97E7),
+          scaffoldBackgroundColor: Colors.white,
+          splashColor: Colors.transparent,
+        ),
+        home: const SplashScreen(),
       ),
-      home: const SplashScreen(),
     );
   }
 }
