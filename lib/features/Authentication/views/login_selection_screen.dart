@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:urikkiri_beta/features/Authentication/views/owner_login_page.dart';
+import 'package:urikkiri_beta/features/Authentication/views/owner_views/owner_login_page.dart';
+import 'package:urikkiri_beta/features/Authentication/views/widgets/app_title_text.dart';
 
 class LoginSelectionScreen extends StatelessWidget {
   const LoginSelectionScreen({super.key});
@@ -24,35 +25,9 @@ class LoginSelectionScreen extends StatelessWidget {
                 decoration: const BoxDecoration(
                   color: Colors.white,
                 ),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "올인원 매장관리",
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "사장",
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                            TextSpan(
-                              text: "끼리",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge!
-                                  .copyWith(
-                                    color: Theme.of(context).primaryColor,
-                                  ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                child: const AppTitleText(
+                  isEmployee: false,
+                  selection: true,
                 ),
               ),
             ),
@@ -72,36 +47,10 @@ class LoginSelectionScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "꿀팁 소통창구",
-                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                              color: Colors.white,
-                            ),
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "직원",
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                            TextSpan(
-                              text: "끼리",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge!
-                                  .copyWith(
-                                    color: Colors.white,
-                                  ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                child: const Center(
+                  child: AppTitleText(
+                    isEmployee: true,
+                    selection: true,
                   ),
                 ),
               ),
