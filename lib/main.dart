@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:urikkiri_beta/constants/sizes.dart';
 import 'package:urikkiri_beta/features/splash_screen.dart';
 
@@ -57,22 +58,33 @@ class UrikkiriApp extends StatelessWidget {
             elevation: 0,
             scrolledUnderElevation: 0,
           ),
-          textTheme: const TextTheme(
-            titleLarge: TextStyle(
-              fontSize: Sizes.size52,
-              fontWeight: FontWeight.w600,
-            ),
-            titleSmall: TextStyle(
-              fontSize: Sizes.size16,
-            ),
-            labelMedium: TextStyle(
-              fontSize: Sizes.size20,
-              fontWeight: FontWeight.w500,
-              color: Color(0xFF323232),
-            ),
-            bodyMedium: TextStyle(
-              fontSize: Sizes.size16,
-            ),
+          textTheme: TextTheme(
+            displayLarge: GoogleFonts.notoSansKr(
+                fontSize: 60, fontWeight: FontWeight.w800, letterSpacing: -0.5),
+            displayMedium: GoogleFonts.notoSansKr(
+                fontSize: 60, fontWeight: FontWeight.w800, letterSpacing: -0.5),
+            displaySmall: GoogleFonts.notoSansKr(
+                fontSize: 48, fontWeight: FontWeight.w800),
+            headlineMedium: GoogleFonts.notoSansKr(
+                fontSize: 34, fontWeight: FontWeight.w600, letterSpacing: 0.25),
+            headlineSmall: GoogleFonts.notoSansKr(
+                fontSize: 26, fontWeight: FontWeight.w500),
+            titleLarge: GoogleFonts.notoSansKr(
+                fontSize: 22, fontWeight: FontWeight.w600, letterSpacing: 0.15),
+            titleMedium: GoogleFonts.notoSansKr(
+                fontSize: 20, fontWeight: FontWeight.w600, letterSpacing: 0.15),
+            titleSmall: GoogleFonts.notoSansKr(
+                fontSize: 20, fontWeight: FontWeight.w500, letterSpacing: 0.1),
+            bodyLarge: GoogleFonts.notoSansKr(
+                fontSize: 18, fontWeight: FontWeight.w600, letterSpacing: 0.5),
+            bodyMedium: GoogleFonts.notoSansKr(
+                fontSize: 16, fontWeight: FontWeight.w500, letterSpacing: 0.25),
+            bodySmall: GoogleFonts.notoSansKr(
+                fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.4),
+            labelLarge: GoogleFonts.notoSansKr(
+                fontSize: 18, fontWeight: FontWeight.w600, letterSpacing: 1.25),
+            labelSmall: GoogleFonts.notoSansKr(
+                fontSize: 10, fontWeight: FontWeight.w400, letterSpacing: 1.5),
           ),
         ),
         home: const SplashScreen(),

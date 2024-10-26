@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:urikkiri_beta/constants/gaps.dart';
+import 'package:urikkiri_beta/features/Authentication/views/owner_views/owner_set_password_screen.dart';
 import 'package:urikkiri_beta/features/Authentication/views/widgets/app_title_text.dart';
 import 'package:urikkiri_beta/features/Authentication/views/widgets/basic_scaffold.dart';
 import 'package:urikkiri_beta/features/Authentication/views/widgets/basic_textformfield.dart';
@@ -33,6 +34,14 @@ class _OwnerSignupScreenState extends State<OwnerSignupScreen> {
         setState(() {});
       }
     }
+  }
+
+  void _onPasswordSet() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const OwnerSetPasswordScreen(),
+      ),
+    );
   }
 
   void _checkFormValidity() {
@@ -71,9 +80,7 @@ class _OwnerSignupScreenState extends State<OwnerSignupScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Gaps.v60,
             const AppTitleText(isEmployee: false),
-            Gaps.v96,
             Center(
               child: Form(
                 key: _formKey,
@@ -109,7 +116,6 @@ class _OwnerSignupScreenState extends State<OwnerSignupScreen> {
                       FractionallySizedBox(
                         widthFactor: 0.7,
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Gaps.v14,
                             OTPInputField(
@@ -121,9 +127,9 @@ class _OwnerSignupScreenState extends State<OwnerSignupScreen> {
                       ),
                     Gaps.v24,
                     FormButton(
-                      labelText: "전화번호 인증",
+                      labelText: _showOTPField ? "전화번호 인증" : "인증번호 전송",
                       isEnabled: _isButtonEnabled,
-                      onPressed: _submitForm,
+                      onPressed: _showOTPField ? _onPasswordSet : _submitForm,
                     ),
                   ],
                 ),

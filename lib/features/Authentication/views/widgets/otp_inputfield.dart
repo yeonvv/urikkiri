@@ -82,28 +82,31 @@ class __OTPInputFormState extends State<_OTPInputForm> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(widget.length, (index) {
         return SizedBox(
-          width: 55,
+          width: Sizes.size56,
           height: 100,
-          child: TextField(
-            showCursor: false,
-            style: Theme.of(context).textTheme.labelMedium,
-            controller: _controllers[index],
-            focusNode: _focusNodes[index],
-            maxLength: 1,
-            textAlign: TextAlign.center,
-            keyboardType: TextInputType.number,
-            onChanged: (value) => _onChanged(value, index),
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.symmetric(vertical: 30),
-              counterText: "",
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(Sizes.size12),
-                borderSide: BorderSide(
-                  color: Theme.of(context).primaryColor,
-                  width: _hasValue[index] ? Sizes.size3 : Sizes.size1,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: Sizes.size5),
+            child: TextField(
+              showCursor: false,
+              style: Theme.of(context).textTheme.titleLarge,
+              controller: _controllers[index],
+              focusNode: _focusNodes[index],
+              maxLength: 1,
+              textAlign: TextAlign.center,
+              keyboardType: TextInputType.number,
+              onChanged: (value) => _onChanged(value, index),
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(vertical: 30),
+                counterText: "",
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(Sizes.size12),
+                  borderSide: BorderSide(
+                    color: Theme.of(context).primaryColor,
+                    width: _hasValue[index] ? Sizes.size3 : Sizes.size1,
+                  ),
                 ),
               ),
             ),

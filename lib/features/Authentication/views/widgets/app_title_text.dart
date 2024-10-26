@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:urikkiri_beta/constants/gaps.dart';
 
 class AppTitleText extends StatelessWidget {
   final bool isEmployee;
@@ -6,7 +7,7 @@ class AppTitleText extends StatelessWidget {
 
   const AppTitleText({
     super.key,
-    required this.isEmployee,
+    this.isEmployee = true,
     this.selection = false,
   });
 
@@ -15,25 +16,26 @@ class AppTitleText extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        Gaps.v60,
         Text(
           isEmployee ? "꿀팁 소통창구" : "올인원 매장관리",
-          style: Theme.of(context).textTheme.titleSmall,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         !selection
             ? Text(
                 "우리끼리",
-                style: Theme.of(context).textTheme.titleLarge,
+                style: Theme.of(context).textTheme.displayLarge,
               )
             : RichText(
                 text: TextSpan(
                   children: [
                     TextSpan(
                       text: isEmployee ? "직원" : "사장",
-                      style: Theme.of(context).textTheme.titleLarge!.copyWith(),
+                      style: Theme.of(context).textTheme.displayLarge,
                     ),
                     TextSpan(
                       text: "끼리",
-                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                      style: Theme.of(context).textTheme.displayLarge!.copyWith(
                           color: selection && !isEmployee
                               ? Theme.of(context).primaryColor
                               : Colors.white),
@@ -41,6 +43,7 @@ class AppTitleText extends StatelessWidget {
                   ],
                 ),
               ),
+        Gaps.v96,
       ],
     );
   }

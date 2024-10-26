@@ -49,7 +49,6 @@ class LoginSelectionScreen extends StatelessWidget {
                 ),
                 child: const Center(
                   child: AppTitleText(
-                    isEmployee: true,
                     selection: true,
                   ),
                 ),

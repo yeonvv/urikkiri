@@ -35,7 +35,7 @@ class _MaintainLoginButtonState extends State<MaintainLoginButton> {
           Gaps.h10,
           Text(
             "로그인 유지",
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   color: _onChecked
                       ? Theme.of(context).primaryColorDark
                       : Theme.of(context).primaryColorLight,

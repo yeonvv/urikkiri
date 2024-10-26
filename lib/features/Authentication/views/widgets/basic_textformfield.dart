@@ -32,7 +32,7 @@ class BasicTextformfield extends StatelessWidget {
     return TextFormField(
       controller: controller,
       showCursor: false,
-      style: Theme.of(context).textTheme.labelMedium,
+      style: Theme.of(context).textTheme.labelLarge,
       textAlign: TextAlign.center,
       keyboardType: isPhoneField || isBusinessRegistrationNumber
           ? TextInputType.phone

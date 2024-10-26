@@ -39,12 +39,11 @@ class FormButton extends StatelessWidget {
           child: Center(
             child: Text(
               labelText,
-              style: TextStyle(
-                color: isEnabled
-                    ? Colors.white
-                    : Theme.of(context).primaryColorLight,
-                fontWeight: FontWeight.w600,
-              ),
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    color: isEnabled
+                        ? Colors.white
+                        : Theme.of(context).primaryColorLight,
+                  ),
             ),
           ),
         ),

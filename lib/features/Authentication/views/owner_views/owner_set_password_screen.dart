@@ -1,60 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:urikkiri_beta/constants/gaps.dart';
-import 'package:urikkiri_beta/features/Authentication/views/owner_views/owner_signup_validate_screen.dart';
 import 'package:urikkiri_beta/features/Authentication/views/widgets/app_title_text.dart';
 import 'package:urikkiri_beta/features/Authentication/views/widgets/basic_scaffold.dart';
 import 'package:urikkiri_beta/features/Authentication/views/widgets/basic_textformfield.dart';
 import 'package:urikkiri_beta/features/Authentication/views/widgets/form_buttom.dart';
-import 'package:urikkiri_beta/features/Authentication/views/widgets/maintain_login_button.dart';
 
-class OwnerLoginPage extends StatefulWidget {
-  const OwnerLoginPage({super.key});
+class OwnerSetPasswordScreen extends StatefulWidget {
+  const OwnerSetPasswordScreen({super.key});
 
   @override
-  State<OwnerLoginPage> createState() => _OwnerLoginPageState();
+  State<OwnerSetPasswordScreen> createState() => _OwnerSetPasswordScreenState();
 }
 
-class _OwnerLoginPageState extends State<OwnerLoginPage> {
+class _OwnerSetPasswordScreenState extends State<OwnerSetPasswordScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _businessNumberController =
-      TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordReConfirmController =
+      TextEditingController();
+
   bool _isButtonEnabled = false;
+
+  void _checkFormValidity() {
+    _isButtonEnabled = _passwordController.text.isNotEmpty &&
+        _passwordReConfirmController.text.isNotEmpty;
+    setState(() {});
+  }
 
   void _submitForm() {
     FocusScope.of(context).unfocus();
     if (_formKey.currentState != null) {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
+        Navigator.popUntil(
+          context,
+          ModalRoute.withName("/ownerLogin"),
+        );
       }
     }
-  }
-
-  void _onSignUpTap() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const OwnerSignupScreen(),
-      ),
-    );
-  }
-
-  void _checkFormValidity() {
-    _isButtonEnabled = _businessNumberController.text.isNotEmpty &&
-        _passwordController.text.isNotEmpty;
-    setState(() {});
   }
 
   @override
   void initState() {
     super.initState();
-    _businessNumberController.addListener(_checkFormValidity);
     _passwordController.addListener(_checkFormValidity);
+    _passwordReConfirmController.addListener(_checkFormValidity);
   }
 
   @override
   void dispose() {
-    _businessNumberController.dispose();
     _passwordController.dispose();
+    _passwordReConfirmController.dispose();
     super.dispose();
   }
 
@@ -65,9 +60,7 @@ class _OwnerLoginPageState extends State<OwnerLoginPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const AppTitleText(
-              isEmployee: false,
-            ),
+            const AppTitleText(isEmployee: false),
             Center(
               child: Form(
                 key: _formKey,
@@ -76,46 +69,30 @@ class _OwnerLoginPageState extends State<OwnerLoginPage> {
                     FractionallySizedBox(
                       widthFactor: 0.7,
                       child: BasicTextformfield(
-                        formInputValue: "사업자 등록 번호",
-                        isBusinessRegistrationNumber: true,
-                        controller: _businessNumberController,
+                        formInputValue: "비밀번호",
+                        isPasswordField: true,
+                        controller: _passwordController,
                       ),
                     ),
                     Gaps.v14,
                     FractionallySizedBox(
                       widthFactor: 0.7,
                       child: BasicTextformfield(
-                        formInputValue: "비밀번호",
+                        formInputValue: "비밀번호 확인",
                         isPasswordField: true,
-                        controller: _passwordController,
+                        controller: _passwordReConfirmController,
                       ),
                     ),
                     Gaps.v24,
                     FormButton(
-                      labelText: "우리 팀 관리하기",
+                      labelText: "우리 팀 만들기",
                       isEnabled: _isButtonEnabled,
                       onPressed: _submitForm,
-                    ),
-                    Gaps.v24,
-                    const MaintainLoginButton(),
-                    Gaps.v24,
-                    GestureDetector(
-                      onTap: _onSignUpTap,
-                      child: Text(
-                        "처음 오는 대장코끼리",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(color: Theme.of(context).primaryColor),
-                      ),
-                    ),
-                    Gaps.v20,
-                    const Text("비밀번호를 잊어버렸어요"),
+                    )
                   ],
                 ),
               ),
-            ),
-            Gaps.v32,
+            )
           ],
         ),
       ),
