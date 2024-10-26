@@ -16,7 +16,7 @@ class AppTitleText extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Gaps.v60,
+        if (!selection) Gaps.v60,
         Text(
           isEmployee ? "꿀팁 소통창구" : "올인원 매장관리",
           style: Theme.of(context).textTheme.titleLarge,
@@ -43,7 +43,7 @@ class AppTitleText extends StatelessWidget {
                   ],
                 ),
               ),
-        Gaps.v96,
+        if (!selection) Gaps.v96,
       ],
     );
   }

@@ -6,7 +6,11 @@ import 'package:urikkiri_beta/features/Authentication/views/widgets/basic_textfo
 import 'package:urikkiri_beta/features/Authentication/views/widgets/form_buttom.dart';
 
 class OwnerSetPasswordScreen extends StatefulWidget {
-  const OwnerSetPasswordScreen({super.key});
+  final forgotPassword;
+  const OwnerSetPasswordScreen({
+    super.key,
+    this.forgotPassword = false,
+  });
 
   @override
   State<OwnerSetPasswordScreen> createState() => _OwnerSetPasswordScreenState();
@@ -56,7 +60,9 @@ class _OwnerSetPasswordScreenState extends State<OwnerSetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return BasicScaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(widget.forgotPassword ? "비밀번호 변경" : "비밀번호 설정"),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -69,7 +75,9 @@ class _OwnerSetPasswordScreenState extends State<OwnerSetPasswordScreen> {
                     FractionallySizedBox(
                       widthFactor: 0.7,
                       child: BasicTextformfield(
-                        formInputValue: "비밀번호",
+                        formInputValue:
+                            widget.forgotPassword ? "새 비밀번호" : "비밀번호",
+                        isLogIn: false,
                         isPasswordField: true,
                         controller: _passwordController,
                       ),
@@ -78,14 +86,16 @@ class _OwnerSetPasswordScreenState extends State<OwnerSetPasswordScreen> {
                     FractionallySizedBox(
                       widthFactor: 0.7,
                       child: BasicTextformfield(
-                        formInputValue: "비밀번호 확인",
+                        formInputValue:
+                            widget.forgotPassword ? "새 비밀번호 확인" : "비밀번호 확인",
+                        isLogIn: false,
                         isPasswordField: true,
                         controller: _passwordReConfirmController,
                       ),
                     ),
                     Gaps.v24,
                     FormButton(
-                      labelText: "우리 팀 만들기",
+                      labelText: widget.forgotPassword ? "비밀번호 변경" : "우리 팀 만들기",
                       isEnabled: _isButtonEnabled,
                       onPressed: _submitForm,
                     )

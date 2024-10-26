@@ -54,6 +54,7 @@ class UrikkiriApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.white,
           splashColor: Colors.transparent,
           appBarTheme: const AppBarTheme(
+            centerTitle: true,
             backgroundColor: Colors.white,
             elevation: 0,
             scrolledUnderElevation: 0,

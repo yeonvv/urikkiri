@@ -8,7 +8,11 @@ import 'package:urikkiri_beta/features/Authentication/views/widgets/form_buttom.
 import 'package:urikkiri_beta/features/Authentication/views/widgets/otp_inputfield.dart';
 
 class OwnerSignupScreen extends StatefulWidget {
-  const OwnerSignupScreen({super.key});
+  final bool forgotPassword;
+  const OwnerSignupScreen({
+    super.key,
+    this.forgotPassword = false,
+  });
 
   @override
   State<OwnerSignupScreen> createState() => _OwnerSignupScreenState();
@@ -39,7 +43,8 @@ class _OwnerSignupScreenState extends State<OwnerSignupScreen> {
   void _onPasswordSet() {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const OwnerSetPasswordScreen(),
+        builder: (context) =>
+            OwnerSetPasswordScreen(forgotPassword: widget.forgotPassword),
       ),
     );
   }
@@ -76,7 +81,9 @@ class _OwnerSignupScreenState extends State<OwnerSignupScreen> {
   @override
   Widget build(BuildContext context) {
     return BasicScaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(widget.forgotPassword ? "비밀번호 찾기" : "회원가입"),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -90,6 +97,7 @@ class _OwnerSignupScreenState extends State<OwnerSignupScreen> {
                       widthFactor: 0.7,
                       child: BasicTextformfield(
                         formInputValue: "사업자 등록 번호",
+                        isLogIn: false,
                         isBusinessRegistrationNumber: true,
                         controller: _businessNumberController,
                       ),
@@ -99,6 +107,7 @@ class _OwnerSignupScreenState extends State<OwnerSignupScreen> {
                       widthFactor: 0.7,
                       child: BasicTextformfield(
                         formInputValue: "대표자 성함",
+                        isLogIn: false,
                         isNameField: true,
                         controller: _ownerNameController,
                       ),
@@ -108,6 +117,7 @@ class _OwnerSignupScreenState extends State<OwnerSignupScreen> {
                       widthFactor: 0.7,
                       child: BasicTextformfield(
                         formInputValue: "전화번호",
+                        isLogIn: false,
                         isPhoneField: true,
                         controller: _phoneNumberController,
                       ),

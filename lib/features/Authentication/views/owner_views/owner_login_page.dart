@@ -44,6 +44,16 @@ class _OwnerLoginPageState extends State<OwnerLoginPage> {
     setState(() {});
   }
 
+  void _onForgotPassword() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const OwnerSignupScreen(
+          forgotPassword: true,
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -110,7 +120,10 @@ class _OwnerLoginPageState extends State<OwnerLoginPage> {
                       ),
                     ),
                     Gaps.v20,
-                    const Text("비밀번호를 잊어버렸어요"),
+                    GestureDetector(
+                      onTap: _onForgotPassword,
+                      child: const Text("비밀번호를 잊어버렸어요"),
+                    ),
                   ],
                 ),
               ),
