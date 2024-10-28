@@ -37,8 +37,8 @@ class _LoginPageState extends State<LoginPage> {
   void _onSignUpTap(bool isEmployee) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => SignupScreen(isEmployee: isEmployee),
-      ),
+          builder: (context) => SignupScreen(isEmployee: isEmployee),
+          settings: const RouteSettings(name: "/signup")),
     );
   }
 
@@ -51,11 +51,11 @@ class _LoginPageState extends State<LoginPage> {
   void _onForgotPassword(bool isEmployee) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => SignupScreen(
-          forgotPassword: true,
-          isEmployee: isEmployee,
-        ),
-      ),
+          builder: (context) => SignupScreen(
+                forgotPassword: true,
+                isEmployee: isEmployee,
+              ),
+          settings: const RouteSettings(name: "/find_password")),
     );
   }
 

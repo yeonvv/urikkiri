@@ -12,6 +12,7 @@ class LoginSelectionScreen extends StatelessWidget {
         builder: (context) => LoginPage(
           isEmployee: employee,
         ),
+        settings: const RouteSettings(name: "/login"),
       ),
     );
   }

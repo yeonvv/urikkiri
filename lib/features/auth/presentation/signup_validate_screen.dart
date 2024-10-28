@@ -42,11 +42,14 @@ class _SignupScreenState extends State<SignupScreen> {
     }
   }
 
-  void _onPasswordSet() {
+  void _onPasswordSet(bool isEmployee) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) =>
-            SetPasswordScreen(forgotPassword: widget.forgotPassword),
+        builder: (context) => SetPasswordScreen(
+          forgotPassword: widget.forgotPassword,
+          isEmployee: isEmployee,
+        ),
+        settings: const RouteSettings(name: "/set_password"),
       ),
     );
   }
@@ -145,7 +148,9 @@ class _SignupScreenState extends State<SignupScreen> {
                     MainButtom(
                       labelText: _showOTPField ? "전화번호 인증" : "인증번호 전송",
                       isEnabled: _isButtonEnabled,
-                      onPressed: _showOTPField ? _onPasswordSet : _submitForm,
+                      onPressed: _showOTPField
+                          ? () => _onPasswordSet(widget.isEmployee)
+                          : _submitForm,
                     ),
                   ],
                 ),

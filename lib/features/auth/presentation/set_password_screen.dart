@@ -6,8 +6,8 @@ import 'package:urikkiri_beta/features/auth/presentation/widgets/basic_scaffold.
 import 'package:urikkiri_beta/features/auth/presentation/widgets/basic_textformfield.dart';
 
 class SetPasswordScreen extends StatefulWidget {
-  final isEmployee;
-  final forgotPassword;
+  final bool isEmployee;
+  final bool forgotPassword;
   const SetPasswordScreen({
     super.key,
     this.forgotPassword = false,
@@ -32,6 +32,13 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
     setState(() {});
   }
 
+  String? _validatePasswordConfirmation(String? value) {
+    if (value != _passwordController.text) {
+      return "비밀번호가 일치하지 않습니다.";
+    }
+    return null;
+  }
+
   void _submitForm() {
     FocusScope.of(context).unfocus();
     if (_formKey.currentState != null) {
@@ -39,7 +46,7 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
         _formKey.currentState!.save();
         Navigator.popUntil(
           context,
-          ModalRoute.withName("/ownerLogin"),
+          ModalRoute.withName("/login"),
         );
       }
     }
@@ -93,6 +100,7 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
                         isLogIn: false,
                         isPasswordField: true,
                         controller: _passwordReConfirmController,
+                        addPasswordValidator: _validatePasswordConfirmation,
                       ),
                     ),
                     Gaps.v24,

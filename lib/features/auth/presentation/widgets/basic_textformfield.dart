@@ -9,6 +9,7 @@ class BasicTextformfield extends StatelessWidget {
   final bool isLogIn;
   final bool isID;
   final TextEditingController controller;
+  final String? Function(String?)? addPasswordValidator;
 
   BasicTextformfield({
     super.key,
@@ -20,6 +21,7 @@ class BasicTextformfield extends StatelessWidget {
     this.isNameField = false,
     this.isLogIn = true,
     this.isID = false,
+    this.addPasswordValidator,
   });
 
   final Map<String, String> _formData = {};
@@ -71,6 +73,11 @@ class BasicTextformfield extends StatelessWidget {
     return phoneNumberRegex.hasMatch(value) ? null : '전화번호 11자리를 입력해 주세요.';
   }
 
+  String? _validateID(String value) {
+    final RegExp idRegex = RegExp(r'^.{4,20}$');
+    return idRegex.hasMatch(value) ? null : "4자 이상 20자 이하로 설정해 주세요";
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -79,7 +86,7 @@ class BasicTextformfield extends StatelessWidget {
       style: Theme.of(context).textTheme.labelLarge,
       textAlign: TextAlign.center,
       keyboardType: isPhoneField || isBusinessRegistrationNumber
-          ? TextInputType.phone
+          ? TextInputType.number
           : TextInputType.text,
       obscureText: isPasswordField,
       decoration: InputDecoration(
@@ -87,22 +94,29 @@ class BasicTextformfield extends StatelessWidget {
       ),
       autocorrect: false,
       validator: (value) {
+        String? validationError;
         if (value == null || value.isEmpty) {
           return "필수 입력 항목입니다.";
         }
         if (isBusinessRegistrationNumber) {
-          return _validateBusinessNumber(value);
+          validationError = _validateBusinessNumber(value);
         }
         if (isPasswordField) {
-          return _validatePassword(value);
+          validationError = _validatePassword(value);
         }
         if (isPhoneField) {
-          return _validatePhoneNumber(value);
+          validationError = _validatePhoneNumber(value);
         }
         if (isNameField) {
-          return _validateName(value);
+          validationError = _validateName(value);
         }
-        return null;
+        if (isID) {
+          validationError = _validateID(value);
+        }
+        if (addPasswordValidator != null) {
+          validationError ??= addPasswordValidator!(value);
+        }
+        return validationError;
       },
       onSaved: (newValue) {
         if (newValue != null) {
