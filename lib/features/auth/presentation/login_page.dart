@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:urikkiri_beta/constants/gaps.dart';
-import 'package:urikkiri_beta/features/Authentication/views/owner_views/owner_signup_validate_screen.dart';
-import 'package:urikkiri_beta/features/Authentication/views/widgets/app_title_text.dart';
-import 'package:urikkiri_beta/features/Authentication/views/widgets/basic_scaffold.dart';
-import 'package:urikkiri_beta/features/Authentication/views/widgets/basic_textformfield.dart';
-import 'package:urikkiri_beta/features/Authentication/views/widgets/form_buttom.dart';
-import 'package:urikkiri_beta/features/Authentication/views/widgets/maintain_login_button.dart';
+import 'package:urikkiri_beta/core/constants/gaps.dart';
+import 'package:urikkiri_beta/core/widgets/main_buttom.dart';
+import 'package:urikkiri_beta/features/auth/presentation/signup_validate_screen.dart';
+import 'package:urikkiri_beta/features/auth/presentation/widgets/app_title_text.dart';
+import 'package:urikkiri_beta/features/auth/presentation/widgets/basic_scaffold.dart';
+import 'package:urikkiri_beta/features/auth/presentation/widgets/basic_textformfield.dart';
+import 'package:urikkiri_beta/features/auth/presentation/widgets/maintain_login_button.dart';
 
-class OwnerLoginPage extends StatefulWidget {
-  const OwnerLoginPage({super.key});
+class LoginPage extends StatefulWidget {
+  final bool isEmployee;
+  const LoginPage({
+    super.key,
+    required this.isEmployee,
+  });
 
   @override
-  State<OwnerLoginPage> createState() => _OwnerLoginPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _OwnerLoginPageState extends State<OwnerLoginPage> {
+class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _businessNumberController =
       TextEditingController();
@@ -30,10 +34,10 @@ class _OwnerLoginPageState extends State<OwnerLoginPage> {
     }
   }
 
-  void _onSignUpTap() {
+  void _onSignUpTap(bool isEmployee) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const OwnerSignupScreen(),
+        builder: (context) => SignupScreen(isEmployee: isEmployee),
       ),
     );
   }
@@ -44,11 +48,12 @@ class _OwnerLoginPageState extends State<OwnerLoginPage> {
     setState(() {});
   }
 
-  void _onForgotPassword() {
+  void _onForgotPassword(bool isEmployee) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const OwnerSignupScreen(
+        builder: (context) => SignupScreen(
           forgotPassword: true,
+          isEmployee: isEmployee,
         ),
       ),
     );
@@ -75,8 +80,8 @@ class _OwnerLoginPageState extends State<OwnerLoginPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const AppTitleText(
-              isEmployee: false,
+            AppTitleText(
+              isEmployee: widget.isEmployee,
             ),
             Center(
               child: Form(
@@ -86,8 +91,10 @@ class _OwnerLoginPageState extends State<OwnerLoginPage> {
                     FractionallySizedBox(
                       widthFactor: 0.7,
                       child: BasicTextformfield(
-                        formInputValue: "사업자 등록 번호",
-                        isBusinessRegistrationNumber: true,
+                        formInputValue: widget.isEmployee ? "아이디" : "사업자 등록 번호",
+                        isBusinessRegistrationNumber:
+                            widget.isEmployee ? false : true,
+                        isID: widget.isEmployee ? true : false,
                         controller: _businessNumberController,
                       ),
                     ),
@@ -101,8 +108,8 @@ class _OwnerLoginPageState extends State<OwnerLoginPage> {
                       ),
                     ),
                     Gaps.v24,
-                    FormButton(
-                      labelText: "우리 팀 관리하기",
+                    MainButtom(
+                      labelText: widget.isEmployee ? "합류하기" : "우리 팀 관리하기",
                       isEnabled: _isButtonEnabled,
                       onPressed: _submitForm,
                     ),
@@ -110,9 +117,9 @@ class _OwnerLoginPageState extends State<OwnerLoginPage> {
                     const MaintainLoginButton(),
                     Gaps.v24,
                     GestureDetector(
-                      onTap: _onSignUpTap,
+                      onTap: () => _onSignUpTap(widget.isEmployee),
                       child: Text(
-                        "처음 오는 대장코끼리",
+                        "처음 오는 ${widget.isEmployee ? '팀원코끼리' : '대장코끼리'}",
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium!
@@ -121,7 +128,7 @@ class _OwnerLoginPageState extends State<OwnerLoginPage> {
                     ),
                     Gaps.v20,
                     GestureDetector(
-                      onTap: _onForgotPassword,
+                      onTap: () => _onForgotPassword(widget.isEmployee),
                       child: const Text("비밀번호를 잊어버렸어요"),
                     ),
                   ],

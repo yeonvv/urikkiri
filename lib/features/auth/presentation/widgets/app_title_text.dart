@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:urikkiri_beta/constants/gaps.dart';
+import 'package:urikkiri_beta/core/constants/gaps.dart';
 
 class AppTitleText extends StatelessWidget {
   final bool isEmployee;

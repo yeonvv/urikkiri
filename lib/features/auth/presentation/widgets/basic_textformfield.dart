@@ -7,6 +7,7 @@ class BasicTextformfield extends StatelessWidget {
   final bool isPhoneField;
   final bool isNameField;
   final bool isLogIn;
+  final bool isID;
   final TextEditingController controller;
 
   BasicTextformfield({
@@ -18,6 +19,7 @@ class BasicTextformfield extends StatelessWidget {
     required this.controller,
     this.isNameField = false,
     this.isLogIn = true,
+    this.isID = false,
   });
 
   final Map<String, String> _formData = {};

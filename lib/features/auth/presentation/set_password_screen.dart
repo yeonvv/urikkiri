@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:urikkiri_beta/constants/gaps.dart';
-import 'package:urikkiri_beta/features/Authentication/views/widgets/app_title_text.dart';
-import 'package:urikkiri_beta/features/Authentication/views/widgets/basic_scaffold.dart';
-import 'package:urikkiri_beta/features/Authentication/views/widgets/basic_textformfield.dart';
-import 'package:urikkiri_beta/features/Authentication/views/widgets/form_buttom.dart';
+import 'package:urikkiri_beta/core/constants/gaps.dart';
+import 'package:urikkiri_beta/core/widgets/main_buttom.dart';
+import 'package:urikkiri_beta/features/auth/presentation/widgets/app_title_text.dart';
+import 'package:urikkiri_beta/features/auth/presentation/widgets/basic_scaffold.dart';
+import 'package:urikkiri_beta/features/auth/presentation/widgets/basic_textformfield.dart';
 
-class OwnerSetPasswordScreen extends StatefulWidget {
+class SetPasswordScreen extends StatefulWidget {
+  final isEmployee;
   final forgotPassword;
-  const OwnerSetPasswordScreen({
+  const SetPasswordScreen({
     super.key,
     this.forgotPassword = false,
+    this.isEmployee = true,
   });
 
   @override
-  State<OwnerSetPasswordScreen> createState() => _OwnerSetPasswordScreenState();
+  State<SetPasswordScreen> createState() => _SetPasswordScreenState();
 }
 
-class _OwnerSetPasswordScreenState extends State<OwnerSetPasswordScreen> {
+class _SetPasswordScreenState extends State<SetPasswordScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _passwordReConfirmController =
@@ -66,7 +68,7 @@ class _OwnerSetPasswordScreenState extends State<OwnerSetPasswordScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const AppTitleText(isEmployee: false),
+            AppTitleText(isEmployee: widget.isEmployee),
             Center(
               child: Form(
                 key: _formKey,
@@ -94,8 +96,12 @@ class _OwnerSetPasswordScreenState extends State<OwnerSetPasswordScreen> {
                       ),
                     ),
                     Gaps.v24,
-                    FormButton(
-                      labelText: widget.forgotPassword ? "비밀번호 변경" : "우리 팀 만들기",
+                    MainButtom(
+                      labelText: widget.forgotPassword
+                          ? "비밀번호 변경"
+                          : widget.isEmployee
+                              ? "무리에 합류하기"
+                              : "우리 팀 만들기",
                       isEnabled: _isButtonEnabled,
                       onPressed: _submitForm,
                     )

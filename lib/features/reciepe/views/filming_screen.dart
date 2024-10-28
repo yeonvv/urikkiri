@@ -1,8 +1,8 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:urikkiri_beta/constants/gaps.dart';
-import 'package:urikkiri_beta/constants/sizes.dart';
+import 'package:urikkiri_beta/core/constants/gaps.dart';
+import 'package:urikkiri_beta/core/constants/sizes.dart';
 
 class FilmingScreen extends StatefulWidget {
   const FilmingScreen({super.key});

@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:urikkiri_beta/constants/gaps.dart';
-import 'package:urikkiri_beta/features/Authentication/views/owner_views/owner_set_password_screen.dart';
-import 'package:urikkiri_beta/features/Authentication/views/widgets/app_title_text.dart';
-import 'package:urikkiri_beta/features/Authentication/views/widgets/basic_scaffold.dart';
-import 'package:urikkiri_beta/features/Authentication/views/widgets/basic_textformfield.dart';
-import 'package:urikkiri_beta/features/Authentication/views/widgets/form_buttom.dart';
-import 'package:urikkiri_beta/features/Authentication/views/widgets/otp_inputfield.dart';
+import 'package:urikkiri_beta/core/constants/gaps.dart';
+import 'package:urikkiri_beta/core/widgets/main_buttom.dart';
+import 'package:urikkiri_beta/features/auth/presentation/set_password_screen.dart';
+import 'package:urikkiri_beta/features/auth/presentation/widgets/app_title_text.dart';
+import 'package:urikkiri_beta/features/auth/presentation/widgets/basic_scaffold.dart';
+import 'package:urikkiri_beta/features/auth/presentation/widgets/basic_textformfield.dart';
+import 'package:urikkiri_beta/features/auth/presentation/widgets/otp_inputfield.dart';
 
-class OwnerSignupScreen extends StatefulWidget {
+class SignupScreen extends StatefulWidget {
+  final bool isEmployee;
   final bool forgotPassword;
-  const OwnerSignupScreen({
+  const SignupScreen({
     super.key,
     this.forgotPassword = false,
+    this.isEmployee = true,
   });
 
   @override
-  State<OwnerSignupScreen> createState() => _OwnerSignupScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _OwnerSignupScreenState extends State<OwnerSignupScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _businessNumberController =
       TextEditingController();
@@ -44,14 +46,14 @@ class _OwnerSignupScreenState extends State<OwnerSignupScreen> {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) =>
-            OwnerSetPasswordScreen(forgotPassword: widget.forgotPassword),
+            SetPasswordScreen(forgotPassword: widget.forgotPassword),
       ),
     );
   }
 
   void _checkFormValidity() {
     _isButtonEnabled = _businessNumberController.text.isNotEmpty &&
-        _ownerNameController.text.isNotEmpty &&
+        (widget.isEmployee ? true : _ownerNameController.text.isNotEmpty) &&
         _phoneNumberController.text.isNotEmpty;
     setState(() {});
   }
@@ -87,7 +89,7 @@ class _OwnerSignupScreenState extends State<OwnerSignupScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const AppTitleText(isEmployee: false),
+            AppTitleText(isEmployee: widget.isEmployee),
             Center(
               child: Form(
                 key: _formKey,
@@ -96,22 +98,26 @@ class _OwnerSignupScreenState extends State<OwnerSignupScreen> {
                     FractionallySizedBox(
                       widthFactor: 0.7,
                       child: BasicTextformfield(
-                        formInputValue: "사업자 등록 번호",
+                        formInputValue: widget.isEmployee ? "아이디" : "사업자 등록 번호",
                         isLogIn: false,
-                        isBusinessRegistrationNumber: true,
+                        isBusinessRegistrationNumber:
+                            widget.isEmployee ? false : true,
+                        isID: widget.isEmployee ? true : false,
                         controller: _businessNumberController,
                       ),
                     ),
-                    Gaps.v14,
-                    FractionallySizedBox(
-                      widthFactor: 0.7,
-                      child: BasicTextformfield(
-                        formInputValue: "대표자 성함",
-                        isLogIn: false,
-                        isNameField: true,
-                        controller: _ownerNameController,
-                      ),
-                    ),
+                    widget.isEmployee ? const SizedBox.shrink() : Gaps.v14,
+                    widget.isEmployee
+                        ? const SizedBox.shrink()
+                        : FractionallySizedBox(
+                            widthFactor: 0.7,
+                            child: BasicTextformfield(
+                              formInputValue: "대표자 성함",
+                              isLogIn: false,
+                              isNameField: true,
+                              controller: _ownerNameController,
+                            ),
+                          ),
                     Gaps.v14,
                     FractionallySizedBox(
                       widthFactor: 0.7,
@@ -136,7 +142,7 @@ class _OwnerSignupScreenState extends State<OwnerSignupScreen> {
                         ),
                       ),
                     Gaps.v24,
-                    FormButton(
+                    MainButtom(
                       labelText: _showOTPField ? "전화번호 인증" : "인증번호 전송",
                       isEnabled: _isButtonEnabled,
                       onPressed: _showOTPField ? _onPasswordSet : _submitForm,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:urikkiri_beta/constants/sizes.dart';
+import 'package:urikkiri_beta/core/constants/sizes.dart';
 import 'package:urikkiri_beta/features/splash_screen.dart';
 
 void main() {

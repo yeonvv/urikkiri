@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:urikkiri_beta/constants/sizes.dart';
-import 'package:urikkiri_beta/features/Authentication/views/login_selection_screen.dart';
+import 'package:urikkiri_beta/core/constants/sizes.dart';
+import 'package:urikkiri_beta/features/auth/presentation/login_selection_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

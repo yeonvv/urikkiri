@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:urikkiri_beta/constants/constants.dart';
-import 'package:urikkiri_beta/constants/sizes.dart';
+import 'package:urikkiri_beta/core/constants/animation_constants.dart';
+import 'package:urikkiri_beta/core/constants/sizes.dart';
 
-class FormButton extends StatelessWidget {
+class MainButtom extends StatelessWidget {
   final String labelText;
   final bool isEnabled;
   final VoidCallback onPressed;
 
-  const FormButton({
+  const MainButtom({
     super.key,
     required this.labelText,
     this.isEnabled = false,
