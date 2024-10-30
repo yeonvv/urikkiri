@@ -6,11 +6,13 @@ import 'package:urikkiri_beta/core/constants/sizes.dart';
 class NavigationTap extends StatefulWidget {
   final String tabTitle;
   final Widget destination;
+  final bool editMode;
 
   const NavigationTap({
     super.key,
     required this.tabTitle,
     required this.destination,
+    this.editMode = false,
   });
 
   @override
@@ -21,15 +23,17 @@ class _NavigationTapState extends State<NavigationTap> {
   bool _isTapped = false;
 
   void _onNavigationTapDown(TapDownDetails event) {
-    _isTapped = !_isTapped;
+    _isTapped = true;
     FocusScope.of(context).unfocus();
     setState(() {});
   }
 
   void _onNavigationTapUp(TapUpDetails event) {
-    _isTapped = !_isTapped;
+    _isTapped = false;
     setState(() {});
-    _navigateToDestination();
+    if (!widget.editMode) {
+      _navigateToDestination();
+    }
   }
 
   void _onNavigationTapCancle() {
@@ -62,7 +66,6 @@ class _NavigationTapState extends State<NavigationTap> {
               alignment: Alignment.center,
               height: 100,
               decoration: BoxDecoration(
-                color: Colors.white,
                 borderRadius: const BorderRadius.all(
                   Radius.circular(Sizes.size12),
                 ),

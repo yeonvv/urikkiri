@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:urikkiri_beta/core/constants/gaps.dart';
-import 'package:urikkiri_beta/core/widgets/main_buttom.dart';
+import 'package:urikkiri_beta/core/widgets/main_button.dart';
 import 'package:urikkiri_beta/features/auth/presentation/signup_validate_screen.dart';
 import 'package:urikkiri_beta/features/auth/presentation/widgets/app_title_text.dart';
 import 'package:urikkiri_beta/features/auth/presentation/widgets/basic_scaffold.dart';
@@ -116,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     Gaps.v24,
-                    MainButtom(
+                    MainButton(
                       labelText: widget.isEmployee ? "합류하기" : "우리 팀 관리하기",
                       isEnabled: _isButtonEnabled,
                       onPressed: _submitForm,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:urikkiri_beta/core/constants/gaps.dart';
-import 'package:urikkiri_beta/core/widgets/main_buttom.dart';
+import 'package:urikkiri_beta/core/widgets/main_button.dart';
 import 'package:urikkiri_beta/features/auth/presentation/set_password_screen.dart';
 import 'package:urikkiri_beta/features/auth/presentation/widgets/app_title_text.dart';
 import 'package:urikkiri_beta/features/auth/presentation/widgets/basic_scaffold.dart';
@@ -145,7 +145,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                       ),
                     Gaps.v24,
-                    MainButtom(
+                    MainButton(
                       labelText: _showOTPField ? "전화번호 인증" : "인증번호 전송",
                       isEnabled: _isButtonEnabled,
                       onPressed: _showOTPField

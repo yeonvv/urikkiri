@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:urikkiri_beta/core/constants/gaps.dart';
 import 'package:urikkiri_beta/core/constants/sizes.dart';
+import 'package:urikkiri_beta/core/widgets/edit_button.dart';
 import 'package:urikkiri_beta/core/widgets/search_bar.dart';
 import 'package:urikkiri_beta/features/home/presentation/widgets/navigation_tap.dart';
 
@@ -13,49 +14,29 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late PageController _pageController;
-
+  bool _editMode = false;
   int _currentPage = 0;
 
   final List<Map<String, dynamic>> _navigationItems = [
     {
       'title': "오늘 할 일",
-      'destination': Scaffold(
-        appBar: AppBar(
-          title: const Text("오늘 할 일"),
-        ),
-      ),
+      'destination': Scaffold(appBar: AppBar(title: const Text("오늘 할 일")))
     },
     {
       'title': "매장 꿀 팁",
-      'destination': Scaffold(
-        appBar: AppBar(
-          title: const Text("매장 꿀 팁"),
-        ),
-      ),
+      'destination': Scaffold(appBar: AppBar(title: const Text("매장 꿀 팁")))
     },
     {
       'title': "공지사항",
-      'destination': Scaffold(
-        appBar: AppBar(
-          title: const Text("공지사항"),
-        ),
-      ),
+      'destination': Scaffold(appBar: AppBar(title: const Text("공지사항")))
     },
     {
       'title': "건의사항",
-      'destination': Scaffold(
-        appBar: AppBar(
-          title: const Text("건의사항"),
-        ),
-      ),
+      'destination': Scaffold(appBar: AppBar(title: const Text("건의사항")))
     },
     {
       'title': "메모",
-      'destination': Scaffold(
-        appBar: AppBar(
-          title: const Text("메모"),
-        ),
-      ),
+      'destination': Scaffold(appBar: AppBar(title: const Text("메모")))
     },
   ];
 
@@ -67,6 +48,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _onScaffoldTap() {
     FocusScope.of(context).unfocus();
+  }
+
+  void _toggleEditMode() {
+    setState(() {
+      _editMode = !_editMode;
+    });
   }
 
   @override
@@ -90,6 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: _onScaffoldTap,
               icon: const Icon(Icons.settings),
               highlightColor: Colors.transparent,
+              color: Theme.of(context).primaryColorDark,
             )
           ],
           leadingWidth: Sizes.size96 + Sizes.size14,
@@ -170,36 +158,72 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Gaps.v10,
-                  ReorderableListView(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    onReorder: (int oldIndex, int newIndex) {
-                      setState(() {
-                        if (newIndex > oldIndex) newIndex -= 1;
-                        final item = _navigationItems.removeAt(oldIndex);
-                        _navigationItems.insert(newIndex, item);
-                      });
-                    },
-                    children: [
-                      for (int index = 0;
-                          index < _navigationItems.length;
-                          index++)
-                        ReorderableDelayedDragStartListener(
-                          key: ValueKey(_navigationItems[index]["title"]),
-                          index: index,
-                          child: Material(
-                            color: Colors.white,
-                            child: NavigationTap(
-                              key: ValueKey(_navigationItems[index]['title']),
-                              tabTitle: _navigationItems[index]['title'],
-                              destination: _navigationItems[index]
-                                  ['destination'],
-                            ),
-                          ),
+                  !_editMode
+                      ? Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            for (var item in _navigationItems)
+                              NavigationTap(
+                                key: ValueKey(item['title']),
+                                tabTitle: item['title'],
+                                destination: item['destination'],
+                                editMode: _editMode,
+                              ),
+                          ],
+                        )
+                      : ReorderableListView(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          onReorder: (int oldIndex, int newIndex) {
+                            setState(() {
+                              if (newIndex > oldIndex) newIndex -= 1;
+                              final item = _navigationItems.removeAt(oldIndex);
+                              _navigationItems.insert(newIndex, item);
+                            });
+                          },
+                          children: [
+                            for (int index = 0;
+                                index < _navigationItems.length;
+                                index++)
+                              ReorderableDelayedDragStartListener(
+                                key: ValueKey(_navigationItems[index]["title"]),
+                                index: index,
+                                child: Material(
+                                  color: Colors.white,
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: NavigationTap(
+                                          key: ValueKey(
+                                              _navigationItems[index]['title']),
+                                          tabTitle: _navigationItems[index]
+                                              ['title'],
+                                          destination: _navigationItems[index]
+                                              ['destination'],
+                                          editMode: _editMode,
+                                        ),
+                                      ),
+                                      _editMode
+                                          ? Icon(
+                                              Icons.menu_rounded,
+                                              color: Theme.of(context)
+                                                  .primaryColorDark,
+                                            )
+                                          : Container(),
+                                      _editMode ? Gaps.h16 : const SizedBox()
+                                    ],
+                                  ),
+                                ),
+                              ),
+                          ],
                         ),
-                    ],
-                  ),
                   Gaps.v10,
+                  GestureDetector(
+                    onTap: _toggleEditMode,
+                    child: EditButton(
+                      editMode: _editMode,
+                    ),
+                  ),
                 ],
               ),
             ),

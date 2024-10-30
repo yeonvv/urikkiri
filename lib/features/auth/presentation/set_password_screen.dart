@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:urikkiri_beta/core/constants/gaps.dart';
-import 'package:urikkiri_beta/core/widgets/main_buttom.dart';
+import 'package:urikkiri_beta/core/widgets/main_button.dart';
 import 'package:urikkiri_beta/features/auth/presentation/widgets/app_title_text.dart';
 import 'package:urikkiri_beta/features/auth/presentation/widgets/basic_scaffold.dart';
 import 'package:urikkiri_beta/features/auth/presentation/widgets/basic_textformfield.dart';
@@ -104,7 +104,7 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
                       ),
                     ),
                     Gaps.v24,
-                    MainButtom(
+                    MainButton(
                       labelText: widget.forgotPassword
                           ? "비밀번호 변경"
                           : widget.isEmployee

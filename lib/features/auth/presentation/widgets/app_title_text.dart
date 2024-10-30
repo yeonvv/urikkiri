@@ -19,7 +19,10 @@ class AppTitleText extends StatelessWidget {
         if (!selection) Gaps.v60,
         Text(
           isEmployee ? "꿀팁 소통창구" : "올인원 매장관리",
-          style: Theme.of(context).textTheme.titleLarge,
+          style: Theme.of(context)
+              .textTheme
+              .titleLarge!
+              .copyWith(color: isEmployee ? Colors.white : null),
         ),
         !selection
             ? Text(

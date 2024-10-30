@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:urikkiri_beta/core/constants/animation_constants.dart';
 import 'package:urikkiri_beta/core/constants/sizes.dart';
 
-class MainButtom extends StatelessWidget {
+class MainButton extends StatelessWidget {
   final String labelText;
   final bool isEnabled;
   final VoidCallback onPressed;
 
-  const MainButtom({
+  const MainButton({
     super.key,
     required this.labelText,
     this.isEnabled = false,
