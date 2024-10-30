@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:urikkiri_beta/core/constants/sizes.dart';
 import 'package:urikkiri_beta/features/splash_screen.dart';
 
 void main() {
@@ -22,70 +21,85 @@ class UrikkiriApp extends StatelessWidget {
           primaryColorDark: const Color(0xFF323232),
           primaryColorLight: Colors.grey.shade400,
           disabledColor: Colors.grey.shade200,
+          shadowColor: const Color(0xFF5E5E5E).withOpacity(0.3),
           textSelectionTheme: const TextSelectionThemeData(
             selectionHandleColor: Color(0xFF5B97E7),
           ),
-          inputDecorationTheme: InputDecorationTheme(
-            border: InputBorder.none,
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(Sizes.size12),
-              borderSide: const BorderSide(
-                  color: Color(0xFF5B97E7), width: Sizes.size3),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(Sizes.size12),
-              borderSide: const BorderSide(color: Color(0xFF5B97E7)),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(Sizes.size12),
-              borderSide: const BorderSide(color: Colors.red),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(Sizes.size12),
-              borderSide: const BorderSide(color: Colors.red, width: 2),
-            ),
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: Sizes.size8,
-            ),
-            hintStyle: TextStyle(
-              color: Colors.grey.shade400,
-            ),
-          ),
           scaffoldBackgroundColor: Colors.white,
           splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          inputDecorationTheme: const InputDecorationTheme(
+            border: InputBorder.none,
+          ),
           appBarTheme: const AppBarTheme(
             centerTitle: true,
             backgroundColor: Colors.white,
             elevation: 0,
             scrolledUnderElevation: 0,
+            surfaceTintColor: Colors.white,
           ),
           textTheme: TextTheme(
             displayLarge: GoogleFonts.notoSansKr(
-                fontSize: 60, fontWeight: FontWeight.w800, letterSpacing: -0.5),
+                fontSize: 60,
+                fontWeight: FontWeight.w800,
+                letterSpacing: -0.5,
+                color: const Color(0xFF323232)),
             displayMedium: GoogleFonts.notoSansKr(
-                fontSize: 60, fontWeight: FontWeight.w800, letterSpacing: -0.5),
+                fontSize: 60,
+                fontWeight: FontWeight.w800,
+                letterSpacing: -0.5,
+                color: const Color(0xFF323232)),
             displaySmall: GoogleFonts.notoSansKr(
                 fontSize: 48, fontWeight: FontWeight.w800),
             headlineMedium: GoogleFonts.notoSansKr(
-                fontSize: 34, fontWeight: FontWeight.w600, letterSpacing: 0.25),
+                fontSize: 34,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.25,
+                color: const Color(0xFF323232)),
             headlineSmall: GoogleFonts.notoSansKr(
-                fontSize: 26, fontWeight: FontWeight.w500),
+                fontSize: 26,
+                fontWeight: FontWeight.w500,
+                color: const Color(0xFF323232)),
             titleLarge: GoogleFonts.notoSansKr(
-                fontSize: 22, fontWeight: FontWeight.w600, letterSpacing: 0.15),
+                fontSize: 22,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.15,
+                color: const Color(0xFF323232)),
             titleMedium: GoogleFonts.notoSansKr(
-                fontSize: 20, fontWeight: FontWeight.w600, letterSpacing: 0.15),
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.15,
+                color: const Color(0xFF323232)),
             titleSmall: GoogleFonts.notoSansKr(
-                fontSize: 20, fontWeight: FontWeight.w500, letterSpacing: 0.1),
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+                letterSpacing: 0.1,
+                color: const Color(0xFF323232)),
             bodyLarge: GoogleFonts.notoSansKr(
-                fontSize: 18, fontWeight: FontWeight.w600, letterSpacing: 0.5),
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.5,
+                color: const Color(0xFF323232)),
             bodyMedium: GoogleFonts.notoSansKr(
-                fontSize: 16, fontWeight: FontWeight.w500, letterSpacing: 0.25),
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                letterSpacing: 0.25,
+                color: const Color(0xFF323232)),
             bodySmall: GoogleFonts.notoSansKr(
-                fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.4),
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                letterSpacing: 0.4,
+                color: const Color(0xFF323232)),
             labelLarge: GoogleFonts.notoSansKr(
-                fontSize: 18, fontWeight: FontWeight.w600, letterSpacing: 1.25),
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 1.25,
+                color: const Color(0xFF323232)),
             labelSmall: GoogleFonts.notoSansKr(
-                fontSize: 10, fontWeight: FontWeight.w400, letterSpacing: 1.5),
+                fontSize: 10,
+                fontWeight: FontWeight.w400,
+                letterSpacing: 1.5,
+                color: const Color(0xFF323232)),
           ),
         ),
         home: const SplashScreen(),

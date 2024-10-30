@@ -6,6 +6,7 @@ import 'package:urikkiri_beta/features/auth/presentation/widgets/app_title_text.
 import 'package:urikkiri_beta/features/auth/presentation/widgets/basic_scaffold.dart';
 import 'package:urikkiri_beta/features/auth/presentation/widgets/basic_textformfield.dart';
 import 'package:urikkiri_beta/features/auth/presentation/widgets/maintain_login_button.dart';
+import 'package:urikkiri_beta/features/home/presentation/home_screen.dart';
 
 class LoginPage extends StatefulWidget {
   final bool isEmployee;
@@ -30,6 +31,13 @@ class _LoginPageState extends State<LoginPage> {
     if (_formKey.currentState != null) {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomeScreen(),
+          ),
+          (route) => false,
+        );
       }
     }
   }

@@ -23,9 +23,7 @@ class SplashScreen extends StatelessWidget {
           horizontal: Sizes.size52,
         ),
         child: Center(
-          child: Image.asset(
-            "assets/images/urikkiri_full_logo.png",
-          ),
+          child: Image.asset("assets/images/urikkiri_full_logo.png"),
         ),
       ),
     );

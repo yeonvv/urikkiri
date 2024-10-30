@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:urikkiri_beta/core/constants/sizes.dart';
 
 class BasicTextformfield extends StatelessWidget {
   final String formInputValue;
@@ -90,7 +91,31 @@ class BasicTextformfield extends StatelessWidget {
           : TextInputType.text,
       obscureText: isPasswordField,
       decoration: InputDecoration(
+        border: InputBorder.none,
         hintText: formInputValue,
+        hintStyle: TextStyle(color: Theme.of(context).primaryColorLight),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(Sizes.size12),
+          borderSide: BorderSide(color: Theme.of(context).primaryColor),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(Sizes.size12),
+          borderSide: BorderSide(
+            color: Theme.of(context).primaryColor,
+            width: Sizes.size3,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(Sizes.size12),
+          borderSide: const BorderSide(color: Colors.red),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(Sizes.size12),
+          borderSide: const BorderSide(color: Colors.red, width: 2),
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: Sizes.size8,
+        ),
       ),
       autocorrect: false,
       validator: (value) {
@@ -99,22 +124,22 @@ class BasicTextformfield extends StatelessWidget {
           return "필수 입력 항목입니다.";
         }
         if (isBusinessRegistrationNumber) {
-          validationError = _validateBusinessNumber(value);
+          validationError = _validateBusinessNumber(value.trim());
         }
         if (isPasswordField) {
-          validationError = _validatePassword(value);
+          validationError = _validatePassword(value.trim());
         }
         if (isPhoneField) {
-          validationError = _validatePhoneNumber(value);
+          validationError = _validatePhoneNumber(value.trim());
         }
         if (isNameField) {
-          validationError = _validateName(value);
+          validationError = _validateName(value.trim());
         }
         if (isID) {
-          validationError = _validateID(value);
+          validationError = _validateID(value.trim());
         }
         if (addPasswordValidator != null) {
-          validationError ??= addPasswordValidator!(value);
+          validationError ??= addPasswordValidator!(value.trim());
         }
         return validationError;
       },

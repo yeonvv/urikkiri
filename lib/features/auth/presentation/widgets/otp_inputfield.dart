@@ -99,6 +99,7 @@ class __OTPInputFormState extends State<_OTPInputForm> {
               keyboardType: TextInputType.number,
               onChanged: (value) => _onChanged(value, index),
               decoration: InputDecoration(
+                border: InputBorder.none,
                 contentPadding: const EdgeInsets.symmetric(vertical: 30),
                 counterText: "",
                 enabledBorder: OutlineInputBorder(
@@ -106,6 +107,13 @@ class __OTPInputFormState extends State<_OTPInputForm> {
                   borderSide: BorderSide(
                     color: Theme.of(context).primaryColor,
                     width: _hasValue[index] ? Sizes.size3 : Sizes.size1,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(Sizes.size12),
+                  borderSide: BorderSide(
+                    color: Theme.of(context).primaryColor,
+                    width: Sizes.size3,
                   ),
                 ),
               ),

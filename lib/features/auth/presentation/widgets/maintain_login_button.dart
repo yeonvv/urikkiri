@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:urikkiri_beta/core/constants/gaps.dart';
 import 'package:urikkiri_beta/core/constants/sizes.dart';
 
@@ -25,8 +24,8 @@ class _MaintainLoginButtonState extends State<MaintainLoginButton> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          FaIcon(
-            FontAwesomeIcons.solidCircleCheck,
+          Icon(
+            Icons.check_circle_rounded,
             size: Sizes.size16,
             color: _onChecked
                 ? Theme.of(context).primaryColor

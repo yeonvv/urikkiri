@@ -27,11 +27,6 @@ class MainButtom extends StatelessWidget {
             color: isEnabled
                 ? Theme.of(context).primaryColor
                 : Theme.of(context).disabledColor,
-            border: Border.all(
-              color: isEnabled
-                  ? Theme.of(context).primaryColor
-                  : Theme.of(context).disabledColor,
-            ),
             borderRadius: BorderRadius.circular(
               Sizes.size12,
             ),
