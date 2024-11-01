@@ -22,7 +22,7 @@ class AppTitleText extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .titleLarge!
-              .copyWith(color: isEmployee ? Colors.white : null),
+              .copyWith(color: isEmployee && selection ? Colors.white : null),
         ),
         !selection
             ? Text(

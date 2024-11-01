@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:urikkiri_beta/core/constants/animation_constants.dart';
 import 'package:urikkiri_beta/core/constants/gaps.dart';
 import 'package:urikkiri_beta/core/constants/sizes.dart';
+import 'package:urikkiri_beta/core/widgets/ripple_effect.dart';
 
 class NavigationTap extends StatefulWidget {
   final String tabTitle;
@@ -20,78 +20,51 @@ class NavigationTap extends StatefulWidget {
 }
 
 class _NavigationTapState extends State<NavigationTap> {
-  bool _isTapped = false;
-
-  void _onNavigationTapDown(TapDownDetails event) {
-    _isTapped = true;
-    FocusScope.of(context).unfocus();
-    setState(() {});
-  }
-
-  void _onNavigationTapUp(TapUpDetails event) {
-    _isTapped = false;
-    setState(() {});
-    if (!widget.editMode) {
-      _navigateToDestination();
-    }
-  }
-
-  void _onNavigationTapCancle() {
-    _isTapped = false;
-    setState(() {});
-  }
-
-  void _navigateToDestination() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => widget.destination,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Gaps.v10,
-        GestureDetector(
-          onTapDown: _onNavigationTapDown,
-          onTapUp: _onNavigationTapUp,
-          onTapCancel: _onNavigationTapCancle,
-          child: FractionallySizedBox(
-            widthFactor: 0.9,
-            child: AnimatedContainer(
-              duration: buttonAnimationDurationFast,
-              alignment: Alignment.center,
-              height: 100,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(Sizes.size12),
-                ),
-                border: Border.all(
-                    color: Theme.of(context).primaryColor.withOpacity(0.5),
-                    width: _isTapped ? Sizes.size3 : Sizes.size1),
-                boxShadow: [
-                  BoxShadow(
-                    color: _isTapped
-                        ? Theme.of(context).primaryColor.withOpacity(0.07)
-                        : Theme.of(context).primaryColor.withOpacity(0.03),
-                    offset: const Offset(0, 0),
-                  ),
-                ],
+    double width = MediaQuery.of(context).size.width;
+
+    return RippleEffect(
+      brightTone: false,
+      editMode: widget.editMode,
+      destination: widget.destination,
+      child: Row(
+        children: [
+          Container(
+            alignment: Alignment.center,
+            height: 100,
+            width: widget.editMode ? width - 80 : width - 40,
+            decoration: BoxDecoration(
+              color: widget.editMode
+                  ? Theme.of(context).primaryColorDark
+                  : Colors.white,
+              borderRadius: const BorderRadius.all(
+                Radius.circular(Sizes.size16),
               ),
-              child: Text(widget.tabTitle,
-                  style: _isTapped
-                      ? Theme.of(context).textTheme.titleMedium!.copyWith(
-                          letterSpacing: -2, fontWeight: FontWeight.w600)
-                      : Theme.of(context).textTheme.titleLarge!.copyWith(
-                          letterSpacing: -2, fontWeight: FontWeight.w600)),
+              border: Border.all(
+                color: widget.editMode
+                    ? Colors.transparent
+                    : Theme.of(context).primaryColorDark,
+                width: widget.editMode ? 0 : Sizes.size1,
+              ),
+            ),
+            child: Text(
+              widget.tabTitle,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium!
+                  .copyWith(color: widget.editMode ? Colors.white : null),
             ),
           ),
-        ),
-        Gaps.v10,
-      ],
+          widget.editMode ? Gaps.h16 : const SizedBox(),
+          widget.editMode
+              ? Icon(
+                  Icons.menu_rounded,
+                  color: Theme.of(context).primaryColorDark,
+                )
+              : Container(),
+        ],
+      ),
     );
   }
 }

@@ -37,6 +37,7 @@ dependencies:
     google_fonts: ^6.2.1
     camera: ^0.11.0+2
     permission_handler: ^11.3.1
+    flutter_touch_ripple: ^2.2.2
 
 dev_dependencies:
     flutter_test:
@@ -63,6 +64,7 @@ flutter:
     assets:
         - assets/images/urikkiri_full_logo.png
         - assets/images/urikkiri_text_logo.png
+        - assets/images/urikkiri_logo.png
 
     # An image asset can refer to one or more resolution-specific "variants", see
     # https://flutter.dev/to/resolution-aware-images

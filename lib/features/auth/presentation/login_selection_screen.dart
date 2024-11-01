@@ -1,46 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:urikkiri_beta/core/widgets/ripple_effect.dart';
 import 'package:urikkiri_beta/features/auth/presentation/login_page.dart';
 import 'package:urikkiri_beta/features/auth/presentation/widgets/app_title_text.dart';
 
 class LoginSelectionScreen extends StatelessWidget {
   const LoginSelectionScreen({super.key});
 
-  void _loginTap(BuildContext context, bool employee) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => LoginPage(
-          isEmployee: employee,
-        ),
-        settings: const RouteSettings(name: "/login"),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
-          Flexible(
-            flex: 1,
-            child: GestureDetector(
-              onTap: () => _loginTap(context, false),
+          Expanded(
+            child: RippleEffect(
+              brightTone: false,
+              destination: const LoginPage(isEmployee: false),
+              routeName: "login",
               child: Container(
                 decoration: const BoxDecoration(
                   color: Colors.white,
                 ),
-                child: const AppTitleText(
-                  isEmployee: false,
-                  selection: true,
+                child: const Center(
+                  child: AppTitleText(
+                    isEmployee: false,
+                    selection: true,
+                  ),
                 ),
               ),
             ),
           ),
-          Flexible(
-            flex: 1,
-            child: GestureDetector(
-              onTap: () => _loginTap(context, true),
+          Expanded(
+            child: RippleEffect(
+              brightTone: true,
+              destination: const LoginPage(isEmployee: true),
+              routeName: "login",
               child: Container(
                 decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor,

@@ -35,7 +35,8 @@ class _MainSearchBarState extends State<MainSearchBar> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: Sizes.size20),
+      padding: const EdgeInsets.symmetric(
+          horizontal: Sizes.size20, vertical: Sizes.size10),
       child: TextField(
         controller: _searchController,
         style: Theme.of(context).textTheme.labelLarge,

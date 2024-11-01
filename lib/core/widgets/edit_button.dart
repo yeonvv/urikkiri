@@ -17,7 +17,8 @@ class EditButton extends StatefulWidget {
 class _EditButtonState extends State<EditButton>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
-  double _scale = 1.0;
+  late Animation<double> _scaleAnimation;
+  late Animation<Color?> _colorAnimation;
 
   @override
   void initState() {
@@ -26,21 +27,27 @@ class _EditButtonState extends State<EditButton>
       vsync: this,
       duration: buttonAnimationDurationFast,
     );
+
+    _scaleAnimation =
+        Tween<double>(begin: 1.0, end: 0.9).animate(_animationController);
+    _colorAnimation = ColorTween(
+      begin: const Color(0xFF323232),
+      end: const Color(0xFF323232).withOpacity(0.7),
+    ).animate(_animationController)
+      ..addListener(() {
+        setState(() {});
+      });
   }
 
   @override
   void didUpdateWidget(EditButton oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // 상태 변화에 따른 애니메이션 효과
     if (widget.editMode != oldWidget.editMode) {
       _toggleEditAnimation();
     }
   }
 
   void _toggleEditAnimation() {
-    setState(() {
-      _scale = 0.9;
-    });
     _animationController.forward().then((_) {
       _animationController.reverse();
     });
@@ -55,18 +62,13 @@ class _EditButtonState extends State<EditButton>
   @override
   Widget build(BuildContext context) {
     return ScaleTransition(
-      scale: Tween<double>(begin: 1.0, end: _scale).animate(
-        CurvedAnimation(
-          parent: _animationController,
-          curve: Curves.easeInOut,
-        ),
-      ),
+      scale: _scaleAnimation,
       child: Container(
-        width: 80,
-        height: 40,
+        width: 60,
+        height: 35,
         padding: const EdgeInsets.symmetric(vertical: Sizes.size4),
         decoration: BoxDecoration(
-          color: Theme.of(context).primaryColorDark,
+          color: _colorAnimation.value,
           borderRadius: BorderRadius.circular(Sizes.size12),
         ),
         child: Center(
@@ -74,7 +76,7 @@ class _EditButtonState extends State<EditButton>
             !widget.editMode ? "편집" : "완료",
             style: Theme.of(context)
                 .textTheme
-                .bodyLarge!
+                .bodySmall!
                 .copyWith(color: Colors.white),
             textAlign: TextAlign.center,
           ),

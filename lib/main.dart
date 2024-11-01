@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:urikkiri_beta/features/splash_screen.dart';
+import 'package:urikkiri_beta/features/home/presentation/home_screen.dart';
 
 void main() {
   runApp(const UrikkiriApp());
@@ -82,7 +82,7 @@ class UrikkiriApp extends StatelessWidget {
                 color: const Color(0xFF323232)),
             bodyMedium: GoogleFonts.notoSansKr(
                 fontSize: 16,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w600,
                 letterSpacing: 0.25,
                 color: const Color(0xFF323232)),
             bodySmall: GoogleFonts.notoSansKr(
@@ -102,7 +102,7 @@ class UrikkiriApp extends StatelessWidget {
                 color: const Color(0xFF323232)),
           ),
         ),
-        home: const SplashScreen(),
+        home: const HomeScreen(),
       ),
     );
   }
