@@ -4,10 +4,12 @@ import 'package:urikkiri_beta/core/constants/sizes.dart';
 
 class EditButton extends StatefulWidget {
   final bool editMode;
+  final VoidCallback onTap; // onTap 콜백 추가
 
   const EditButton({
     super.key,
     required this.editMode,
+    required this.onTap, // onTap 콜백 초기화
   });
 
   @override
@@ -61,24 +63,27 @@ class _EditButtonState extends State<EditButton>
 
   @override
   Widget build(BuildContext context) {
-    return ScaleTransition(
-      scale: _scaleAnimation,
-      child: Container(
-        width: 60,
-        height: 35,
-        padding: const EdgeInsets.symmetric(vertical: Sizes.size4),
-        decoration: BoxDecoration(
-          color: _colorAnimation.value,
-          borderRadius: BorderRadius.circular(Sizes.size12),
-        ),
-        child: Center(
-          child: Text(
-            !widget.editMode ? "편집" : "완료",
-            style: Theme.of(context)
-                .textTheme
-                .bodySmall!
-                .copyWith(color: Colors.white),
-            textAlign: TextAlign.center,
+    return GestureDetector(
+      onTap: widget.onTap, // 버튼 탭 시 onTap 콜백 호출
+      child: ScaleTransition(
+        scale: _scaleAnimation,
+        child: Container(
+          width: 55,
+          height: 30,
+          padding: const EdgeInsets.symmetric(vertical: Sizes.size4),
+          decoration: BoxDecoration(
+            color: _colorAnimation.value,
+            borderRadius: BorderRadius.circular(Sizes.size8),
+          ),
+          child: Center(
+            child: Text(
+              !widget.editMode ? "편집" : "완료",
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall!
+                  .copyWith(color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
           ),
         ),
       ),

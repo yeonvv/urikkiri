@@ -6,6 +6,7 @@ import 'package:urikkiri_beta/core/widgets/ripple_effect.dart';
 class NavigationTap extends StatefulWidget {
   final String tabTitle;
   final Widget destination;
+  final String routeName;
   final bool editMode;
 
   const NavigationTap({
@@ -13,6 +14,7 @@ class NavigationTap extends StatefulWidget {
     required this.tabTitle,
     required this.destination,
     this.editMode = false,
+    required this.routeName,
   });
 
   @override
@@ -25,9 +27,11 @@ class _NavigationTapState extends State<NavigationTap> {
     double width = MediaQuery.of(context).size.width;
 
     return RippleEffect(
+      borderRadius: Sizes.size16,
       brightTone: false,
       editMode: widget.editMode,
       destination: widget.destination,
+      routeName: widget.routeName,
       child: Row(
         children: [
           Container(

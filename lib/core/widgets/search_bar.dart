@@ -1,14 +1,12 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:urikkiri_beta/core/constants/sizes.dart';
 
-class MainSearchBar extends StatefulWidget implements PreferredSizeWidget {
+class MainSearchBar extends StatefulWidget {
   const MainSearchBar({super.key});
 
   @override
   State<MainSearchBar> createState() => _MainSearchBarState();
-
-  @override
-  Size get preferredSize => const Size.fromHeight(Sizes.size52);
 }
 
 class _MainSearchBarState extends State<MainSearchBar> {
@@ -34,59 +32,48 @@ class _MainSearchBarState extends State<MainSearchBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-          horizontal: Sizes.size20, vertical: Sizes.size10),
-      child: TextField(
-        controller: _searchController,
-        style: Theme.of(context).textTheme.labelLarge,
-        cursorColor: Theme.of(context).primaryColor,
-        autocorrect: false,
-        enableSuggestions: false,
-        decoration: InputDecoration(
-          hintText: "키워드를 입력하세요",
-          hintStyle: Theme.of(context)
-              .textTheme
-              .labelLarge!
-              .copyWith(color: Theme.of(context).primaryColorLight),
-          prefixIcon: Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Icon(
-              Icons.search_rounded,
-              size: Sizes.size36,
-              color: Theme.of(context).primaryColor,
-            ),
-          ),
-          suffixIcon: _searchController.text.isNotEmpty
-              ? Padding(
-                  padding: const EdgeInsets.only(right: 10),
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.cancel_rounded,
-                      size: Sizes.size28,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                    onPressed: _clearText,
-                  ),
-                )
-              : null,
-          contentPadding: const EdgeInsets.symmetric(horizontal: Sizes.size20),
-          border: InputBorder.none,
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(Sizes.size36),
-            borderSide: BorderSide(
-              color: Theme.of(context).primaryColor,
-              width: 1.5,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(Sizes.size36),
-            borderSide: BorderSide(
-              color: Theme.of(context).primaryColor,
-              width: Sizes.size2,
-            ),
+    return TextField(
+      controller: _searchController,
+      style: Theme.of(context).textTheme.labelLarge,
+      cursorColor: Theme.of(context).primaryColor,
+      autocorrect: false,
+      enableSuggestions: false,
+      decoration: InputDecoration(
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(Sizes.size10),
+          borderSide: const BorderSide(
+            color: Colors.transparent,
           ),
         ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(Sizes.size10),
+          borderSide: const BorderSide(
+            color: Colors.transparent,
+          ),
+        ),
+        contentPadding: const EdgeInsets.only(top: Sizes.size10),
+        filled: true,
+        fillColor: Theme.of(context).primaryColor.withOpacity(0.1),
+        hintText: "키워드를 입력하세요",
+        hintStyle: Theme.of(context)
+            .textTheme
+            .labelLarge!
+            .copyWith(color: Theme.of(context).primaryColorLight),
+        prefixIcon: Icon(
+          EvaIcons.searchOutline,
+          size: _searchController.text.isNotEmpty ? Sizes.size28 : Sizes.size24,
+          color: Theme.of(context).primaryColor,
+        ),
+        suffixIcon: _searchController.text.isNotEmpty
+            ? IconButton(
+                icon: Icon(
+                  EvaIcons.closeCircle,
+                  size: Sizes.size24,
+                  color: Theme.of(context).primaryColor,
+                ),
+                onPressed: _clearText,
+              )
+            : null,
       ),
     );
   }

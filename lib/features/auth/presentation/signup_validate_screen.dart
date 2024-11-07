@@ -1,9 +1,11 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:urikkiri_beta/core/constants/gaps.dart';
+import 'package:urikkiri_beta/core/constants/sizes.dart';
+import 'package:urikkiri_beta/core/utils/pop_page.dart';
 import 'package:urikkiri_beta/core/widgets/main_button.dart';
 import 'package:urikkiri_beta/features/auth/presentation/set_password_screen.dart';
 import 'package:urikkiri_beta/features/auth/presentation/widgets/app_title_text.dart';
-import 'package:urikkiri_beta/features/auth/presentation/widgets/basic_scaffold.dart';
 import 'package:urikkiri_beta/features/auth/presentation/widgets/basic_textformfield.dart';
 import 'package:urikkiri_beta/features/auth/presentation/widgets/otp_inputfield.dart';
 
@@ -85,9 +87,18 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BasicScaffold(
+    return Scaffold(
       appBar: AppBar(
-        title: Text(widget.forgotPassword ? "비밀번호 찾기" : "회원가입"),
+        title: Text(
+          widget.forgotPassword ? "비밀번호 찾기" : "회원가입",
+        ),
+        leading: GestureDetector(
+          onTap: () => popPage(context),
+          child: const Icon(
+            EvaIcons.chevronLeft,
+            size: Sizes.size40,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(

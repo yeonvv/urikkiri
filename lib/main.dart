@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:urikkiri_beta/features/home/presentation/home_screen.dart';
+import 'package:urikkiri_beta/core/widgets/main_navigation.dart';
 
 void main() {
   runApp(const UrikkiriApp());
@@ -102,7 +102,7 @@ class UrikkiriApp extends StatelessWidget {
                 color: const Color(0xFF323232)),
           ),
         ),
-        home: const HomeScreen(),
+        home: const MainNavigation(),
       ),
     );
   }

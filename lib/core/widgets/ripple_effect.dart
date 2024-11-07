@@ -8,6 +8,7 @@ class RippleEffect extends StatelessWidget {
   final bool brightTone;
   final Widget? destination;
   final String? routeName;
+  final double borderRadius;
 
   const RippleEffect({
     super.key,
@@ -16,6 +17,7 @@ class RippleEffect extends StatelessWidget {
     this.destination,
     this.routeName,
     required this.brightTone,
+    required this.borderRadius,
   });
 
   void _onNavigationTap(BuildContext context) async {
@@ -34,6 +36,7 @@ class RippleEffect extends StatelessWidget {
   Widget build(BuildContext context) {
     return TouchRipple(
       onTapAsync: () async {
+        FocusScope.of(context).unfocus();
         if (!editMode) {
           await Future.delayed(const Duration(milliseconds: 200));
           _onNavigationTap(context);
@@ -45,8 +48,8 @@ class RippleEffect extends StatelessWidget {
           : brightTone
               ? Colors.white.withOpacity(0.1)
               : Theme.of(context).shadowColor.withOpacity(0.1),
-      rippleBorderRadius: const BorderRadius.all(
-        Radius.circular(Sizes.size16),
+      rippleBorderRadius: BorderRadius.all(
+        Radius.circular(borderRadius),
       ),
       rippleBlurRadius: Sizes.size10,
       longTapCycleDuration: const Duration(milliseconds: 500),

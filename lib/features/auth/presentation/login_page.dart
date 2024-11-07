@@ -1,12 +1,14 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:urikkiri_beta/core/constants/gaps.dart';
+import 'package:urikkiri_beta/core/constants/sizes.dart';
+import 'package:urikkiri_beta/core/utils/pop_page.dart';
 import 'package:urikkiri_beta/core/widgets/main_button.dart';
+import 'package:urikkiri_beta/core/widgets/main_navigation.dart';
 import 'package:urikkiri_beta/features/auth/presentation/signup_validate_screen.dart';
 import 'package:urikkiri_beta/features/auth/presentation/widgets/app_title_text.dart';
-import 'package:urikkiri_beta/features/auth/presentation/widgets/basic_scaffold.dart';
 import 'package:urikkiri_beta/features/auth/presentation/widgets/basic_textformfield.dart';
 import 'package:urikkiri_beta/features/auth/presentation/widgets/maintain_login_button.dart';
-import 'package:urikkiri_beta/features/home/presentation/home_screen.dart';
 
 class LoginPage extends StatefulWidget {
   final bool isEmployee;
@@ -34,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => const HomeScreen(),
+            builder: (context) => const MainNavigation(),
           ),
           (route) => false,
         );
@@ -45,8 +47,21 @@ class _LoginPageState extends State<LoginPage> {
   void _onSignUpTap(bool isEmployee) {
     Navigator.of(context).push(
       MaterialPageRoute(
-          builder: (context) => SignupScreen(isEmployee: isEmployee),
-          settings: const RouteSettings(name: "/signup")),
+        builder: (context) => SignupScreen(isEmployee: isEmployee),
+        settings: const RouteSettings(name: "/signup"),
+      ),
+    );
+  }
+
+  void _onForgotPassword(bool isEmployee) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => SignupScreen(
+          forgotPassword: true,
+          isEmployee: isEmployee,
+        ),
+        settings: const RouteSettings(name: "/find_password"),
+      ),
     );
   }
 
@@ -54,17 +69,6 @@ class _LoginPageState extends State<LoginPage> {
     _isButtonEnabled = _businessNumberController.text.isNotEmpty &&
         _passwordController.text.isNotEmpty;
     setState(() {});
-  }
-
-  void _onForgotPassword(bool isEmployee) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-          builder: (context) => SignupScreen(
-                forgotPassword: true,
-                isEmployee: isEmployee,
-              ),
-          settings: const RouteSettings(name: "/find_password")),
-    );
   }
 
   @override
@@ -83,8 +87,16 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BasicScaffold(
-      appBar: AppBar(),
+    return Scaffold(
+      appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () => popPage(context),
+          child: const Icon(
+            EvaIcons.chevronLeft,
+            size: Sizes.size40,
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [

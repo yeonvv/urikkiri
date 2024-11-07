@@ -13,6 +13,7 @@ class LoginSelectionScreen extends StatelessWidget {
         children: [
           Expanded(
             child: RippleEffect(
+              borderRadius: 0,
               brightTone: false,
               destination: const LoginPage(isEmployee: false),
               routeName: "login",
@@ -31,6 +32,7 @@ class LoginSelectionScreen extends StatelessWidget {
           ),
           Expanded(
             child: RippleEffect(
+              borderRadius: 0,
               brightTone: true,
               destination: const LoginPage(isEmployee: true),
               routeName: "login",
