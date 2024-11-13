@@ -1,8 +1,6 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:urikkiri_beta/core/constants/gaps.dart';
-import 'package:urikkiri_beta/core/constants/sizes.dart';
-import 'package:urikkiri_beta/core/utils/pop_page.dart';
+import 'package:urikkiri_beta/core/utils/appbar_pop.dart';
 import 'package:urikkiri_beta/core/widgets/main_button.dart';
 import 'package:urikkiri_beta/features/auth/presentation/set_password_screen.dart';
 import 'package:urikkiri_beta/features/auth/presentation/widgets/app_title_text.dart';
@@ -46,12 +44,23 @@ class _SignupScreenState extends State<SignupScreen> {
 
   void _onPasswordSet(bool isEmployee) {
     Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => SetPasswordScreen(
-          forgotPassword: widget.forgotPassword,
-          isEmployee: isEmployee,
-        ),
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return SetPasswordScreen(
+            forgotPassword: widget.forgotPassword,
+            isEmployee: isEmployee,
+          );
+        },
         settings: const RouteSettings(name: "/set_password"),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(1.0, 0.0);
+          const end = Offset.zero;
+          const curve = Curves.easeInOut;
+          var tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          var offsetAnimation = animation.drive(tween);
+          return SlideTransition(position: offsetAnimation, child: child);
+        },
       ),
     );
   }
@@ -89,17 +98,8 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          widget.forgotPassword ? "비밀번호 찾기" : "회원가입",
-        ),
-        leading: GestureDetector(
-          onTap: () => popPage(context),
-          child: const Icon(
-            EvaIcons.chevronLeft,
-            size: Sizes.size40,
-          ),
-        ),
-      ),
+          title: Text(widget.forgotPassword ? "비밀번호 찾기" : "회원가입"),
+          leading: const AppBarPop()),
       body: SingleChildScrollView(
         child: Column(
           children: [

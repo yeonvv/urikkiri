@@ -31,12 +31,31 @@ class UrikkiriApp extends StatelessWidget {
           inputDecorationTheme: const InputDecorationTheme(
             border: InputBorder.none,
           ),
-          appBarTheme: const AppBarTheme(
+          appBarTheme: AppBarTheme(
+            toolbarHeight: 60,
             centerTitle: true,
+            foregroundColor: const Color(0xFF323232),
             backgroundColor: Colors.white,
             elevation: 0,
             scrolledUnderElevation: 0,
             surfaceTintColor: Colors.white,
+            titleTextStyle: GoogleFonts.notoSansKr(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: const Color(0xFF323232),
+            ),
+          ),
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            selectedItemColor: const Color(0xFF5B97E7),
+            unselectedItemColor: Colors.grey.shade400,
+            showSelectedLabels: true,
+            showUnselectedLabels: true,
+            selectedIconTheme:
+                const IconThemeData(size: 28, color: Color(0xFF5B97E7)),
+            unselectedIconTheme:
+                IconThemeData(size: 24, color: Colors.grey.shade400),
+            selectedLabelStyle: GoogleFonts.notoSansKr(fontSize: 14),
+            unselectedLabelStyle: GoogleFonts.notoSansKr(fontSize: 12),
           ),
           textTheme: TextTheme(
             displayLarge: GoogleFonts.notoSansKr(

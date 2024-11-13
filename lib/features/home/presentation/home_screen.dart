@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:urikkiri_beta/core/constants/gaps.dart';
 import 'package:urikkiri_beta/core/constants/sizes.dart';
 import 'package:urikkiri_beta/core/widgets/ripple_effect.dart';
 import 'package:urikkiri_beta/core/widgets/search_bar.dart';
+import 'package:urikkiri_beta/features/search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -36,23 +38,34 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          leading: Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                left: Sizes.size20,
-                top: Sizes.size6,
-              ),
-              child: Image.asset("assets/images/urikkiri_text_logo.png"),
+          leading: Padding(
+            padding: const EdgeInsets.only(
+              left: Sizes.size20,
             ),
+            child: Image.asset("assets/images/urikkiri_text_logo.png"),
           ),
           leadingWidth: 95,
           actions: [
-            Text(
-              "뒷골목 친구들",
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Theme.of(context).primaryColorDark.withOpacity(0.5)),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "뒷골목 친구들",
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      color:
+                          Theme.of(context).primaryColorDark.withOpacity(0.5)),
+                ),
+                Gaps.h8,
+                Center(
+                  child: FaIcon(
+                    FontAwesomeIcons.gear,
+                    size: Sizes.size18,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
+                Gaps.h20
+              ],
             ),
-            Gaps.h20,
           ],
         ),
         body: Padding(
@@ -63,8 +76,20 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           child: Column(
             children: [
-              Gaps.v10,
-              const MainSearchBar(),
+              const RippleEffect(
+                borderRadius: Sizes.size10,
+                brightTone: false,
+                destination: SearchScreen(
+                  isHomePage: true,
+                ),
+                child: Hero(
+                  tag: "search-bar",
+                  child: MainSearchBar(
+                    decoration: true,
+                    isSearch: false,
+                  ),
+                ),
+              ),
               Gaps.v10,
               SizedBox(
                 height: 150,

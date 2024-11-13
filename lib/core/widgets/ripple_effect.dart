@@ -9,6 +9,7 @@ class RippleEffect extends StatelessWidget {
   final Widget? destination;
   final String? routeName;
   final double borderRadius;
+  final VoidCallback? callFunction;
 
   const RippleEffect({
     super.key,
@@ -18,15 +19,27 @@ class RippleEffect extends StatelessWidget {
     this.routeName,
     required this.brightTone,
     required this.borderRadius,
+    this.callFunction,
   });
 
   void _onNavigationTap(BuildContext context) async {
     if (destination != null) {
       await Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (context) => destination!,
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) {
+            return destination!;
+          },
           settings: RouteSettings(name: "/$routeName"),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            const begin = Offset(1.0, 0.0);
+            const end = Offset.zero;
+            const curve = Curves.easeInOut;
+            var tween =
+                Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+            var offsetAnimation = animation.drive(tween);
+            return SlideTransition(position: offsetAnimation, child: child);
+          },
         ),
       );
     }
@@ -38,8 +51,12 @@ class RippleEffect extends StatelessWidget {
       onTapAsync: () async {
         FocusScope.of(context).unfocus();
         if (!editMode) {
-          await Future.delayed(const Duration(milliseconds: 200));
-          _onNavigationTap(context);
+          await Future.delayed(const Duration(milliseconds: 150));
+          if (callFunction != null) {
+            callFunction!();
+          } else {
+            _onNavigationTap(context);
+          }
         }
       },
       onLongTap: (_) => true,

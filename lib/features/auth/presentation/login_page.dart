@@ -1,10 +1,10 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:urikkiri_beta/core/constants/gaps.dart';
 import 'package:urikkiri_beta/core/constants/sizes.dart';
-import 'package:urikkiri_beta/core/utils/pop_page.dart';
+import 'package:urikkiri_beta/core/utils/appbar_pop.dart';
 import 'package:urikkiri_beta/core/widgets/main_button.dart';
 import 'package:urikkiri_beta/core/widgets/main_navigation.dart';
+import 'package:urikkiri_beta/core/widgets/ripple_effect.dart';
 import 'package:urikkiri_beta/features/auth/presentation/signup_validate_screen.dart';
 import 'package:urikkiri_beta/features/auth/presentation/widgets/app_title_text.dart';
 import 'package:urikkiri_beta/features/auth/presentation/widgets/basic_textformfield.dart';
@@ -44,27 +44,6 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  void _onSignUpTap(bool isEmployee) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => SignupScreen(isEmployee: isEmployee),
-        settings: const RouteSettings(name: "/signup"),
-      ),
-    );
-  }
-
-  void _onForgotPassword(bool isEmployee) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => SignupScreen(
-          forgotPassword: true,
-          isEmployee: isEmployee,
-        ),
-        settings: const RouteSettings(name: "/find_password"),
-      ),
-    );
-  }
-
   void _checkFormValidity() {
     _isButtonEnabled = _businessNumberController.text.isNotEmpty &&
         _passwordController.text.isNotEmpty;
@@ -88,15 +67,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () => popPage(context),
-          child: const Icon(
-            EvaIcons.chevronLeft,
-            size: Sizes.size40,
-          ),
-        ),
-      ),
+      appBar: AppBar(leading: const AppBarPop()),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -136,20 +107,40 @@ class _LoginPageState extends State<LoginPage> {
                     Gaps.v24,
                     const MaintainLoginButton(),
                     Gaps.v24,
-                    GestureDetector(
-                      onTap: () => _onSignUpTap(widget.isEmployee),
-                      child: Text(
-                        "처음 오는 ${widget.isEmployee ? '팀원코끼리' : '대장코끼리'}",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(color: Theme.of(context).primaryColor),
+                    RippleEffect(
+                      borderRadius: Sizes.size8,
+                      brightTone: false,
+                      destination: SignupScreen(
+                        forgotPassword: false,
+                        isEmployee: widget.isEmployee,
+                      ),
+                      routeName: "signup",
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: Sizes.size20, vertical: Sizes.size6),
+                        child: Text(
+                          "처음 오는 ${widget.isEmployee ? '팀원코끼리' : '대장코끼리'}",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(color: Theme.of(context).primaryColor),
+                        ),
                       ),
                     ),
                     Gaps.v20,
-                    GestureDetector(
-                      onTap: () => _onForgotPassword(widget.isEmployee),
-                      child: const Text("비밀번호를 잊어버렸어요"),
+                    RippleEffect(
+                      borderRadius: Sizes.size8,
+                      brightTone: false,
+                      destination: SignupScreen(
+                        forgotPassword: true,
+                        isEmployee: widget.isEmployee,
+                      ),
+                      routeName: "find_password",
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: Sizes.size20, vertical: Sizes.size6),
+                        child: const Text("비밀번호를 잊어버렸어요"),
+                      ),
                     ),
                   ],
                 ),
